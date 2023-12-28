@@ -27,11 +27,14 @@
   }
 
   .tags a {
+    -webkit-text-fill-color: #f2f2f2;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
     padding: 1.6em 1.9em;
-    border-radius: 65px;
-    background: #F8C7CC;
-    box-shadow:  8px 8px 16px #c19b9f,
-                 -8px -8px 16px #fff3f9;
+    border-radius: 32px;
+    background: #BA3F1D;
+    box-shadow: inset 11px 11px 17px #6e2511,
+                inset -11px -11px 17px #ff5929;
   }
 
   .box-container {
