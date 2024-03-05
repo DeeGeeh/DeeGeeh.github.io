@@ -2,10 +2,15 @@
 .topnav {
     background-color: #333;
     overflow: hidden;
+    border-radius: 32px;
+    box-shadow: 5px 5px 20px skyblue,
+                -5px -5px 20px #04AA6D;
   }
   
+
   /* Style the links inside the navigation bar */
   .topnav a {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     float: left;
     color: #f2f2f2;
     text-align: center;
@@ -14,28 +19,48 @@
     font-size: 17px;
   }
   
+
   /* Change the color of links on hover */
   .topnav a:hover {
-    background-color: #ddd;
+    background-color: #ffffff;
     color: black;
   }
   
+
   /* Add a color to the active/current link */
-  .topnav a.active {
+  .topnav a:active {
     background-color: #04AA6D;
     color: white;
   }
 
-  .tags a {
-    -webkit-text-fill-color: #f2f2f2;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: bold;
-    padding: 1.6em 1.9em;
-    border-radius: 32px;
-    background: #BA3F1D;
-    box-shadow: inset 11px 11px 17px #6e2511,
-                inset -11px -11px 17px #ff5929;
+
+  .tags {
+    background-color: #f1f1f1;
+    cursor: pointer;
   }
+
+  
+  .tags a:hover {
+    background-color: aqua;
+  }
+
+  
+  .tags a:active {
+    background-color: #04AA6D;
+    color: white;
+  }
+
+
+  .tags a {
+    -webkit-text-fill-color: #000000;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 1.5em 1.7em;
+    border-radius: 25px;
+    background: linear-gradient(145deg, #ffffff, #ffffff);
+    box-shadow:  5px 5px 50px skyblue,
+                 -5px -5px 50px #04AA6D;
+  }
+
 
   .box-container {
     position: fixed;
