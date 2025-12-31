@@ -1,0 +1,70 @@
+@use 'webcoreui/styles' as *;
+@use 'tailwindcss' as *;
+
+@include setup((
+    theme: 'vintage',
+    includeUtilities: false,
+    includeTooltip: true
+));
+
+html {
+    --w-font-family: "Young Serif", serif;
+    
+    &::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url('../images/bg_grid.jpg');
+        background-repeat: repeat;
+        background-size: cover;
+        opacity: 0.15;
+        pointer-events: none;
+        z-index: 0;
+    }
+}
+
+html body {
+    --w-sm-radius: 2.4px;
+    --w-md-radius: 6px;
+    --w-lg-radius: 12px;
+    --w-xl-radius: 18px;
+    
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    font-family: var(--w-font-family);
+    color: var(--w-color-primary);
+}
+
+h1, h2, h3, h4, h5, h6,
+strong,
+.young-serif-regular,
+[class*="w-modal"],
+[class*="w-button"],
+[class*="w-tooltip"] {
+    font-family: "Young Serif", serif !important;
+    font-weight: 400;
+}
+
+.young-serif-bold {
+    font-family: "Young Serif", serif !important;
+    font-weight: 700;
+}
+
+.caprasimo-regular {
+    font-family: "Caprasimo", system-ui, serif !important;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.bubble-heading {
+    display: inline-block;
+    width: fit-content;
+    background: var(--w-color-warning-accent);
+    color: var(--w-color-info-fg);
+    padding: 0.6rem 1rem;
+    border-radius: var(--w-lg-radius);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    line-height: 1.1;
+    font-family: "Caprasimo", system-ui, serif !important;
+}

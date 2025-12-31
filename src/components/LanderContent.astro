@@ -1,0 +1,100 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import HeroSection from './HeroSection.astro';
+import BlogSection from './BlogSection.astro';
+import BlogPostModal from './BlogPostModal.astro';
+import ProjectsSection from './ProjectsSection.astro';
+import slush_alepa from '../images/slush_alepa.jpg';
+
+// Projects Data
+const projects = [
+    {
+        title: "Tuni Deitti",
+        description: "A dating and friending app made for Tampere University students.",
+        url: "https://github.com/DeeGeeh/tuni-deitti",
+        tags: ["TypeScript", "Next.js", "Tailwind", "Firebase"]
+    },
+    {
+        title: "SpotifyOLED",
+        description: "ESP32-powered touch OLED display that shows your current Spotify track.",
+        url: "https://github.com/DeeGeeh/SpotifyOLED",
+        tags: ["C++", "ESP32", "IoT", "Arduino"]
+    },
+    {
+        title: "PomoC",
+        description: "Pomodoro timer for the Linux terminal. Built in C.",
+        url: "https://github.com/DeeGeeh/PomoC",
+        tags: ["C", "Linux"]
+    }
+];
+
+
+type BlogEntry = CollectionEntry<'blog'>;
+
+// Fetch all blog posts from the content collection
+const blogEntries: BlogEntry[] = await getCollection('blog');
+
+// Transform to the format expected by BlogSection
+const blogPosts = blogEntries.map((entry: BlogEntry) => ({
+    title: entry.data.title,
+    excerpt: entry.data.excerpt,
+    date: entry.data.date,
+    modalId: `${entry.slug}-modal`,
+    slug: entry.slug,
+}));
+
+// Render all blog post content
+const renderedPosts = await Promise.all(
+    blogEntries.map(async (entry: BlogEntry) => {
+        const { Content } = await render(entry);
+        return {
+            slug: entry.slug,
+            title: entry.data.title,
+            date: entry.data.date,
+            modalId: `${entry.slug}-modal`,
+            Content,
+        };
+    })
+);
+---
+
+<main class="lander young-serif-regular">
+    <HeroSection 
+        image={slush_alepa}
+        name="Diar Ghaderi"
+        bio="Hey, I'm Diar. <br /> I'm a software engineer. <br /> Currently co-founder at"
+        companyName="Potenssi"
+        companyUrl="https://www.linkedin.com/company/potenssi/"
+        linkedInUrl="https://www.linkedin.com/in/diarghaderi/"
+        githubUrl="https://github.com/DeeGeeh"
+    />
+
+    <BlogSection 
+        title="Stuff I wrote"
+        posts={blogPosts}
+    />
+
+    <ProjectsSection 
+        title="Stuff I built"
+        projects={projects}
+    />
+</main>
+
+<!-- Blog Post Modals (dynamically generated) -->
+{renderedPosts.map(({ title, date, modalId, Content }) => (
+    <BlogPostModal 
+        title={title}
+        subTitle={date}
+        modalId={modalId}
+    >
+        <Content />
+    </BlogPostModal>
+))}
+
+<style>
+    .lander {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+    }
+</style>

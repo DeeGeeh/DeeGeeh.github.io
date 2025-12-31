@@ -1,0 +1,118 @@
+---
+import { Modal } from 'webcoreui/astro';
+
+interface Props {
+    title: string;
+    subTitle: string;
+    modalId: string;
+}
+
+const { title, subTitle, modalId } = Astro.props;
+---
+
+<Modal 
+    title={title}
+    subTitle={subTitle}
+    className={`${modalId} blog-modal`}
+    data-modal-id={modalId}
+>
+    <div class="blog-modal-content">
+        <slot />
+    </div>
+</Modal>
+
+<script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+        const modals = document.querySelectorAll('[data-modal-id]');
+        modals.forEach((modalEl) => {
+            const modalId = modalEl.getAttribute('data-modal-id');
+            if (modalId && window.modal) {
+                window.modal({
+                    trigger: `.trigger-${modalId}`,
+                    modal: `.${modalId}`
+                });
+            }
+        });
+    });
+</script>
+
+<style>
+    :global(.blog-modal) {
+        width: 90vw;
+        max-width: 1200px;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .blog-modal-content {
+        max-width: 1000px;
+        line-height: 1.8;
+    }
+
+    .blog-modal-content :global(h2) {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--w-color-primary);
+        margin: 1.5rem 0 0.75rem;
+    }
+
+    .blog-modal-content :global(h2:first-child) {
+        margin-top: 1rem;
+    }
+
+    .blog-modal-content :global(h3) {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: var(--w-color-primary);
+        margin: 1.25rem 0 0.5rem;
+    }
+
+    .blog-modal-content :global(p) {
+        margin: 0 0 1rem;
+        color: var(--w-color-primary-80);
+    }
+
+    .blog-modal-content :global(ul),
+    .blog-modal-content :global(ol) {
+        margin: 0 0 1rem;
+        padding-left: 1.5rem;
+        color: var(--w-color-primary-80);
+    }
+
+    .blog-modal-content :global(li) {
+        margin-bottom: 0.5rem;
+    }
+
+    .blog-modal-content :global(blockquote) {
+        margin: 1.5rem 0;
+        padding: 1rem 1.5rem;
+        border-left: 4px solid var(--w-color-primary-50);
+        background: var(--w-color-primary-10);
+        border-radius: 0 var(--w-sm-radius) var(--w-sm-radius) 0;
+        font-style: italic;
+        color: var(--w-color-primary-70);
+    }
+
+    .blog-modal-content :global(a) {
+        color: var(--w-color-info);
+        text-decoration: underline;
+    }
+
+    .blog-modal-content :global(a:hover) {
+        color: var(--w-color-info-70);
+    }
+
+    .blog-modal-content :global(.blog-modal-footer) {
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--w-color-primary-20);
+    }
+
+    .blog-modal-content :global(img) {
+        max-width: 300px;
+        height: auto;
+        display: block;
+        margin: 1rem auto;
+        border-radius: var(--w-sm-radius);
+    }
+</style>
