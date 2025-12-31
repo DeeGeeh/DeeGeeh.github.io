@@ -6,7 +6,6 @@ import BlogPostModal from './BlogPostModal.astro';
 import ProjectsSection from './ProjectsSection.astro';
 import slush_alepa from '../images/slush_alepa.jpg';
 
-// Projects Data
 const projects = [
     {
         title: "Tuni Deitti",
@@ -31,10 +30,8 @@ const projects = [
 
 type BlogEntry = CollectionEntry<'blog'>;
 
-// Fetch all blog posts from the content collection
 const blogEntries: BlogEntry[] = await getCollection('blog');
 
-// Transform to the format expected by BlogSection
 const blogPosts = blogEntries.map((entry: BlogEntry) => ({
     title: entry.data.title,
     excerpt: entry.data.excerpt,
@@ -43,7 +40,6 @@ const blogPosts = blogEntries.map((entry: BlogEntry) => ({
     slug: entry.slug,
 }));
 
-// Render all blog post content
 const renderedPosts = await Promise.all(
     blogEntries.map(async (entry: BlogEntry) => {
         const { Content } = await render(entry);
@@ -80,7 +76,6 @@ const renderedPosts = await Promise.all(
     />
 </main>
 
-<!-- Blog Post Modals (dynamically generated) -->
 {renderedPosts.map(({ title, date, modalId, Content }) => (
     <BlogPostModal 
         title={title}
